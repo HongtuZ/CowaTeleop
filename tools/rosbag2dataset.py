@@ -20,6 +20,14 @@ def parse_rosbag(rosbag_path, output_path, dataset_name):
         print("Parsing topic: ", topic_name)
         data = []
         for topic, msg, t in bag.read_messages(topics=[topic_name]):
+            if topic == '/camera/color/image_raw':
+                img = np.frombuffer(msg.data, dtype=np.uint8).reshape(msg.height, msg.width, 3)
+            elif topic == '/camera/depth/image_raw':
+                depth = np.frombuffer(msg.data, dtype=np.uint16).reshape(msg.height, msg.width)
+            elif topic == '/arm/joint_states':
+                joint_states = msg.position
+            elif topic == '/arm/pose':
+                pose = np.array([msg.position.x, msg.position.y, msg.position.z])
             data.append(msg)
         data = np.array(data)
         print("Shape of the data: ", data.shape)

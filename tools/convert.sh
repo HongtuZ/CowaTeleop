@@ -1,0 +1,1 @@
+rosbags-convert --src 2024-12-18-15-57-42.bag --dst test --src-typestore ros1_noetic --dst-typestore ros2_iron

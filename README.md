@@ -19,7 +19,7 @@ pip install rosbags
  rosbags-convert --src xx.bag --dst xx_dir --src-typestore ros1_noetic --dst-typestore ros2_iron
 ```
 
-### 2. Generation
+### 2. Generation with Rosbag
 
 **a. Create RobotArm ros msg**
 
@@ -33,4 +33,26 @@ source install/setup.bash
 
 ```bash
 python3 tools/rosbag2dataset.py -d xx_dir
+```
+
+### 2. Generation with Crbag (COWA crpilot env)
+
+**a. Enter the crpilot docker container**
+
+first download the crpilot docker image (for help from cowa), then run
+
+```bash
+cd ~/crpilot && source /opt/cowa/crpilot-x86_v2.5/setup.bash && docker.py
+```
+
+in container run
+
+```bash
+node_server &
+```
+
+**b. Generate dataset with zarr.zip format**
+
+```bash
+python3 tools/crbag2dataset.py -d xx_dir
 ```

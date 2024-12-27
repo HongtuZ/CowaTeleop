@@ -1,6 +1,30 @@
 # CowaTeleop
 Robotic arm teleoperation
 
+## Roadmap
+
+[x] Zarr dataset generation
+
+[x] Teleop with isomorphic exoskeleton
+
+[] Teleop with meta quest3
+
+[] Training with diffuion policy
+
+[] Training with VLA
+
+## Teleopration
+
+### Teleop with isomorphic exoskeleton
+
+```bash
+python3 teleop/exoskeleton_teleop.py
+```
+
+### Teleop with meta quest3
+
+comming soon!
+
 ## Dataset generatioon
 
 ### 1. Rosbag conversion (Optional)

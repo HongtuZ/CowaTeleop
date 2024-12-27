@@ -1,0 +1,4 @@
+numpy
+zmq
+dynamixel_sdk
+mediapipe

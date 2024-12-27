@@ -3,15 +3,11 @@ Robotic arm teleoperation
 
 ## Roadmap
 
-[x] Zarr dataset generation
-
-[x] Teleop with isomorphic exoskeleton
-
-[] Teleop with meta quest3
-
-[] Training with diffuion policy
-
-[] Training with VLA
+- [X] Zarr dataset generation
+- [X] Teleop with isomorphic exoskeleton
+- [ ] Teleop with meta quest3
+- [ ] Training with diffuion policy
+- [ ] Training with VLA
 
 ## Teleopration
 

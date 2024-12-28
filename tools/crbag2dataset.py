@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-# zarr version 2.17.0
+# pip install imagecodecs
+# pip install zarr==2.17.0
 
 import cv2
 import sys
@@ -28,9 +29,15 @@ def parse_crbag(bag_path):
     joints_vel_episode = []
     # Camera img timestep as base timestep
     can_record_joints = False
+    drop_frames_num = 30
     for info in record:
         if info.channel_name == '/camera/surround/front/image_raw':
+            if drop_frames_num > 0:
+                drop_frames_num -= 1
+                continue
             img = np.array(info.data()[0].image, dtype=np.uint8)
+            cv2.imshow('img', img)
+            cv2.waitKey(1)
             img = cv2.resize(img, (224, 224))
             img_episode.append(img)
             can_record_joints = True
@@ -54,12 +61,11 @@ def main(args):
     output_path = Path(
         args.output_path) if args.output_path else bag_dir.parent
     dataset_name = args.dataset_name if args.dataset_name else bag_dir.stem
-    zarr_path = (output_path / dataset_name).with_suffix('.zarr.zip')
+    zarr_path = (output_path / dataset_name).with_suffix('.zarr')
     zarr_path.parent.mkdir(parents=True, exist_ok=True)
     print(f'Create dataset at: {str(zarr_path)}')
     img_crompressor = JpegXl(level=99, numthreads=8)
-    dataset = ReplayBuffer.create_empty_zarr(
-        storage=zarr.ZipStore(str(zarr_path), mode='w'))
+    dataset = ReplayBuffer.create_empty_zarr(storage=zarr.DirectoryStore(str(zarr_path)))
 
     # Parse all the bag in bag dir
     for bag_path in bag_dir.rglob('*.record*'):
